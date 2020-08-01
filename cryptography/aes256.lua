@@ -22,7 +22,7 @@ local function gf(a, b)
     return p
 end
 
-function expandkey(key)
+local function expandkey(key)
     local _ = {
         key:sub(1,1):byte(), key:sub(2,2):byte(), key:sub(3,3):byte(), key:sub(4,4):byte(), key:sub(5,5):byte(), key:sub(6,6):byte(), key:sub(7,7):byte(), key:sub(8,8):byte(),
         key:sub(9,9):byte(), key:sub(10,10):byte(), key:sub(11,11):byte(), key:sub(12,12):byte(), key:sub(13,13):byte(), key:sub(14,14):byte(), key:sub(15,15):byte(), key:sub(16,16):byte(),
@@ -46,7 +46,7 @@ function expandkey(key)
     return _
 end
 
-function encrypt(datachunk, expandedkey)
+local function encrypt(datachunk, expandedkey)
     local _i = 1
     local __1, __2, __3, __4, __5, __6, __7, __8, __9, __10, __11, __12, __13, __14, __15, __16 = bxor(datachunk:sub(1,1):byte(), expandedkey[_i]), bxor(datachunk:sub(2,2):byte(), expandedkey[_i+1]), bxor(datachunk:sub(3,3):byte(), expandedkey[_i+2]), bxor(datachunk:sub(4,4):byte(), expandedkey[_i+3]), bxor(datachunk:sub(5,5):byte(), expandedkey[_i+4]),bxor(datachunk:sub(6,6):byte(), expandedkey[_i+5]), bxor(datachunk:sub(7,7):byte(), expandedkey[_i+6]), bxor(datachunk:sub(8,8):byte(), expandedkey[_i+7]), bxor(datachunk:sub(9,9):byte(), expandedkey[_i+8]), bxor(datachunk:sub(10,10):byte(), expandedkey[_i+9]), bxor(datachunk:sub(11,11):byte(), expandedkey[_i+10]),bxor(datachunk:sub(12,12):byte(), expandedkey[_i+11]), bxor(datachunk:sub(13,13):byte(), expandedkey[_i+12]), bxor(datachunk:sub(14,14):byte(), expandedkey[_i+13]), bxor(datachunk:sub(15,15):byte(), expandedkey[_i+14]), bxor(datachunk:sub(16,16):byte(), expandedkey[_i+15])
     for i = 1, 13 do
@@ -58,7 +58,7 @@ function encrypt(datachunk, expandedkey)
     return char(bxor(sbox[__1], expandedkey[_i])) .. char(bxor(sbox[__6], expandedkey[_i+1])) .. char(bxor(sbox[__11], expandedkey[_i+2])) ..char(bxor(sbox[__16], expandedkey[_i+3])) .. char(bxor(sbox[__5], expandedkey[_i+4])) .. char(bxor(sbox[__10], expandedkey[_i+5])) ..char(bxor(sbox[__15], expandedkey[_i+6])) .. char(bxor(sbox[__4], expandedkey[_i+7])) .. char(bxor(sbox[__9], expandedkey[_i+8])) ..char(bxor(sbox[__14], expandedkey[_i+9])) .. char(bxor(sbox[__3], expandedkey[_i+10])) .. char(bxor(sbox[__8], expandedkey[_i+11])) ..char(bxor(sbox[__13], expandedkey[_i+12])) .. char(bxor(sbox[__2], expandedkey[_i+13])) .. char(bxor(sbox[__7], expandedkey[_i+14])) .. char(bxor(sbox[__12], expandedkey[_i+15]))
 end
 
-function decrypt(datachunk, expandedkey)
+local function decrypt(datachunk, expandedkey)
     local _i = 225
     local __1, __6, __11, __16, __5, __10, __15, __4, __9, __14, __3, __8, __13, __2, __7, __12 = invsbox[bxor(datachunk:sub(1,1):byte(), expandedkey[_i])], invsbox[bxor(datachunk:sub(2,2):byte(), expandedkey[_i+1])], invsbox[bxor(datachunk:sub(3,3):byte(), expandedkey[_i+2])], invsbox[bxor(datachunk:sub(4,4):byte(), expandedkey[_i+3])], invsbox[bxor(datachunk:sub(5,5):byte(), expandedkey[_i+4])], invsbox[bxor(datachunk:sub(6,6):byte(), expandedkey[_i+5])], invsbox[bxor(datachunk:sub(7,7):byte(), expandedkey[_i+6])], invsbox[bxor(datachunk:sub(8,8):byte(), expandedkey[_i+7])], invsbox[bxor(datachunk:sub(9,9):byte(), expandedkey[_i+8])], invsbox[bxor(datachunk:sub(10,10):byte(), expandedkey[_i+9])], invsbox[bxor(datachunk:sub(11,11):byte(), expandedkey[_i+10])], invsbox[bxor(datachunk:sub(12,12):byte(), expandedkey[_i+11])], invsbox[bxor(datachunk:sub(13,13):byte(), expandedkey[_i+12])], invsbox[bxor(datachunk:sub(14,14):byte(), expandedkey[_i+13])], invsbox[bxor(datachunk:sub(15,15):byte(), expandedkey[_i+14])], invsbox[bxor(datachunk:sub(16,16):byte(), expandedkey[_i+15])]
     for i = 1, 13 do
