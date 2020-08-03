@@ -1,9 +1,20 @@
-require"bit"
-
 --ради бога пожалуйста пропускайте это через minifier
 
 local char = string.char
 local floor = floor
+
+local bit = _G.bit or _G.bit32
+
+if not bit then
+    local status, tbl = pcall(require, "bit")
+    if status then bit = tbl end
+
+    local status, tbl = pcall(require, "bit32")
+    if status then bit = tbl end
+end
+
+if not bit then error("bit library not found!") end
+
 local bor = bit.bor
 local lshift = bit.lshift
 local bxor = bit.bxor
@@ -12,6 +23,9 @@ local band = bit.band
 local bnot = bit.bnot
 local rshift = bit.rshift
 local tobit = bit.tobit
+
+
+
 local floor = math.floor
 
 local function toBytes(num)
