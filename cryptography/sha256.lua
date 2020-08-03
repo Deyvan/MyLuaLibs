@@ -60,7 +60,7 @@ return function(data)
     local h6 = 0x1F83D9AB
     local h7 = 0x5BE0CD19
 
-    for i = 1, ceil(#data / 64) * 64, 64 do
+    for i = 1, #data, 64 do
         local chunk_1 = bor(bor(bor(lshift(data:sub(i,i):byte(), 24),       lshift(data:sub(i+1,i+1):byte(), 16)),   lshift(data:sub(i+2,i+2):byte(), 8)),   data:sub(i+3,i+3):byte())
         local chunk_2 = bor(bor(bor(lshift(data:sub(i+4,i+4):byte(), 24),   lshift(data:sub(i+5,i+5):byte(), 16)),   lshift(data:sub(i+6,i+6):byte(), 8)),   data:sub(i+7,i+7):byte())
         local chunk_3 = bor(bor(bor(lshift(data:sub(i+8,i+8):byte(), 24),   lshift(data:sub(i+9,i+9):byte(), 16)),   lshift(data:sub(i+10,i+10):byte(), 8)), data:sub(i+11,i+11):byte())
