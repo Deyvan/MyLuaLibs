@@ -16,8 +16,8 @@ end
 
 if not bit then error("bit library not found!") end
 
-local bxor = bit.bxor
 local char = string.char
+local bxor = bit.bxor
 local band = bit.band
 local rshift = bit.rshift
 local lshift = bit.lshift

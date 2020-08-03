@@ -1,5 +1,3 @@
---ради бога пожалуйста пропускайте это через minifier
-
 local char = string.char
 local floor = math.floor
 local ceil = math.ceil
@@ -34,7 +32,6 @@ local function toBytes(num)
     return out
 end
 
---max data size 2^53-1
 return function(data)
 
     local datalen = #data
@@ -51,14 +48,14 @@ return function(data)
 
     data = data .. "\128" .. string.rep("\0", 64 - ((#data + 9) % 64)) .. len
 
-    local h0 = 0x6A09E667
-    local h1 = 0xBB67AE85
-    local h2 = 0x3C6EF372
-    local h3 = 0xA54FF53A
-    local h4 = 0x510E527F
-    local h5 = 0x9B05688C
-    local h6 = 0x1F83D9AB
-    local h7 = 0x5BE0CD19
+    local h0 = 0xC1059ED8
+    local h1 = 0x367CD507
+    local h2 = 0x3070DD17
+    local h3 = 0xF70E5939
+    local h4 = 0xFFC00B31
+    local h5 = 0x68581511
+    local h6 = 0x64F98FA7
+    local h7 = 0xBEFA4FA4
 
     for i = 1, ceil(#data / 64) * 64, 64 do
         local chunk_1 = bor(bor(bor(lshift(data:sub(i,i):byte(), 24),       lshift(data:sub(i+1,i+1):byte(), 16)),   lshift(data:sub(i+2,i+2):byte(), 8)),   data:sub(i+3,i+3):byte())
@@ -210,5 +207,5 @@ return function(data)
         h7 = tobit(h7 + h)
     end
     
-    return toBytes(h0) .. toBytes(h1) .. toBytes(h2) .. toBytes(h3) .. toBytes(h4) .. toBytes(h5) .. toBytes(h6) .. toBytes(h7)
+    return toBytes(h0) .. toBytes(h1) .. toBytes(h2) .. toBytes(h3) .. toBytes(h4) .. toBytes(h5) .. toBytes(h6)
 end
