@@ -5,9 +5,19 @@
 -- любой массив начинается с индекса 1
 -- any array starts at index 1
 
-require"bit"
-
 local json, offset, len
+
+local bit = _G.bit or _G.bit32
+
+if not bit then
+    local status, tbl = pcall(require, "bit")
+    if status then bit = tbl end
+
+    local status, tbl = pcall(require, "bit32")
+    if status then bit = tbl end
+end
+
+if not bit then error("bit library not found!") end
 
 ---------------------------------
 
@@ -243,7 +253,6 @@ local function formatValueWithoutKey(value, deep, type, isEnd)
 end
 
 local function recursive(tbl, deep, forciblyHash, isEndTBL) -- если будет родительская таблца в таблице, то... земля пухом
-    print(hasHash(tbl))
     if hasHash(tbl) or forciblyHash then
         local out = "{"
 
