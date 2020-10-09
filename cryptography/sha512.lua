@@ -23,7 +23,7 @@ local bnot = bit.bnot
 local rshift = bit.rshift
 local tobit = bit.tobit
 
-local function toBytes(num)
+local function toBytes32(num)
     local out = ""
     for i = 0, 3 do
         out = char(band(num, 255)) .. out
@@ -58,16 +58,10 @@ return function(data)
     local h7H, h7L = 0x5be0cd19, 0x137e2179
 
     for i = 1, #data, 128 do
-        
+        -- (80 * 2) = 160
 
-        h0 = tobit(h0 + a)
-        h1 = tobit(h1 + b)
-        h2 = tobit(h2 + c)
-        h3 = tobit(h3 + d)
-        h4 = tobit(h4 + e)
-        h5 = tobit(h5 + f)
-        h6 = tobit(h6 + g)
-        h7 = tobit(h7 + h)
+
+        
     end
     
     return toBytes(h0) .. toBytes(h1) .. toBytes(h2) .. toBytes(h3) .. toBytes(h4) .. toBytes(h5) .. toBytes(h6) .. toBytes(h7)
