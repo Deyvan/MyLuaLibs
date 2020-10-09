@@ -25,7 +25,7 @@ local result_R = bor(lshift(R, n), rshift(L, 32-n))
 
 --rotate right (L .. R) >>> n
 local result_L = bor(lshift(R, 32-n), rshift(L, n))
-local result_$ = bor(rshift(R, n), lshift(L, 32-n))
+local result_R = bor(rshift(R, n), lshift(L, 32-n))
 
 
 
