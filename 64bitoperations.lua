@@ -18,13 +18,25 @@ local function overflowbit32(L, R)
     return 0
 end
 
---rotate left (R .. L) <<< N
+--rotate left (L .. R) <<< n
 local result_L = bor(rshift(R, 32-n), lshift(L, n))
 local result_R = bor(lshift(R, n), rshift(L, 32-n))
 
---shift left (R .. L) << N
+--rotate right (L .. R) >>> n
+local result_L = bor(lshift(R, 32-n), rshift(L, n))
+local result_$ = bor(rshift(R, n), lshift(L, 32-n))
+
+
+
+--shift left (L .. R) << n
 local result_L = bor(rshift(R, 32-n), lshift(L, n))
 local result_R = lshift(R, n)
+
+--shift right (L .. R) >> n
+local result_L = rshift(L, n)
+local result_R = bor(lshift(R, n), rshift(L, 32-n))
+
+
 
 --sum (L0 .. R0) + (L1 .. R1)
 local result_L = tobit(L0 + L1 + overflowbit32(R0, R1))
