@@ -38,6 +38,14 @@ local function overflowbit32(L, R)
     return 0
 end
 
+local function not64(L, R) return bnot(L), bnot(R) end
+local function rotl64(L, R) return bor(rshift(R, 32-n), lshift(L, n)), bor(lshift(R, n), rshift(L, 32-n)) end
+local function rotr64(L, R, n) return bor(lshift(R, 32-n), rshift(L, n)), bor(rshift(R, n), lshift(L, 32-n)) end
+local function shiftr64(L, R, n) return rshift(L, n), bor(lshift(R, n), rshift(L, 32-n)) end
+local function add64(L0, R0, L1, R1) return tobit(L0 + L1 + overflowbit32(R0, R1)), tobit(R0 + R1) end
+local function and64(L0, R0, L1, R1) return band(L0, L1), band(R0, R1) end
+local function xor64(L0, R0, L1, R1) return bxor(L0, L1), bxor(R0, R1) end
+
 local function sha512(data)
 
     local datalen = #data
@@ -94,6 +102,7 @@ local function sha512(data)
         chunkL[14], chunkR[14] = bor(bor(bor(lshift(data:sub(i+104,i+104):byte(), 24), lshift(data:sub(i+105,i+105):byte(), 16)), lshift(data:sub(i+106,i+106):byte(), 8)), data:sub(i+107,i+107):byte()), bor(bor(bor(lshift(data:sub(i+108,i+108):byte(), 24), lshift(data:sub(i+109,i+109):byte(), 16)), lshift(data:sub(i+110,i+110):byte(), 8)), data:sub(i+111,i+111):byte())
         chunkL[15], chunkR[15] = bor(bor(bor(lshift(data:sub(i+112,i+112):byte(), 24), lshift(data:sub(i+113,i+113):byte(), 16)), lshift(data:sub(i+114,i+114):byte(), 8)), data:sub(i+115,i+115):byte()), bor(bor(bor(lshift(data:sub(i+116,i+116):byte(), 24), lshift(data:sub(i+117,i+117):byte(), 16)), lshift(data:sub(i+118,i+118):byte(), 8)), data:sub(i+119,i+119):byte())
         chunkL[16], chunkR[16] = bor(bor(bor(lshift(data:sub(i+120,i+120):byte(), 24), lshift(data:sub(i+121,i+121):byte(), 16)), lshift(data:sub(i+122,i+122):byte(), 8)), data:sub(i+123,i+123):byte()), bor(bor(bor(lshift(data:sub(i+124,i+124):byte(), 24), lshift(data:sub(i+125,i+125):byte(), 16)), lshift(data:sub(i+126,i+126):byte(), 8)), data:sub(i+127,i+127):byte())
+        
         
 
 
