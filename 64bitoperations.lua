@@ -13,10 +13,10 @@ local lshift = bit.lshift
 local rshift = bit.rshift
 
 local function overflowbit32(L, R)
-    if L < 0 then L = L + 4294967296 end
-    if R < 0 then R = R + 4294967296 end
-    if (L + R) > 4294967295 then return 1 end
-    return 0
+	if L < 0 then L = 0x100000000 + L end
+	if R < 0 then R = 0x100000000 + R end
+	if (L+R) > 0xFFFFFFFF then return 1 end
+	return 0
 end
 
 --rotate left (L .. R) <<< n
@@ -35,7 +35,7 @@ local result_R = lshift(R, n)
 
 --shift right (L .. R) >> n
 local result_L = rshift(L, n)
-local result_R = bor(lshift(R, n), rshift(L, 32-n))
+local result_R = bor(rshift(R, n), lshift(L, 32-n))
 
 
 
